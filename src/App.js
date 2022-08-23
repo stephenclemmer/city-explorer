@@ -3,8 +3,6 @@ import axios from 'axios';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image'
-// import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 
@@ -21,7 +19,6 @@ class App extends React.Component {
       errorMessage: '',
     }
   }
-  
 
 
   handleInput = (e) => {
@@ -30,6 +27,7 @@ class App extends React.Component {
       city: e.target.value
     })
   }
+
 
   getCityData = async (e) => {
     e.preventDefault();
@@ -45,12 +43,8 @@ class App extends React.Component {
     this.setState({cityData: cityData.data[0]});
     this.setState({cityLon: cityData.data[0].lon});
     this.setState({cityLat: cityData.data[0].lat});
-
- 
   }
   
-
-
 
   render() {
     return (
@@ -70,18 +64,16 @@ class App extends React.Component {
         </Form>
         
         <Card style={{ width: '30rem' }}>
-      <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
-      <Card.Body>
-        <Card.Title>City: {this.state.city}</Card.Title>
-        <Card.Text>
-        <div>Latitude: {this.state.cityLon}</div>
-        <div>Longitude: {this.state.cityLon}</div>
-        </Card.Text>
-      </Card.Body>
-    </Card>
-      
+          <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
+          <Card.Body>
+            <Card.Title>City: {this.state.city}</Card.Title>
+            <Card.Text>
+            <div>Latitude: {this.state.cityLon}</div>
+            <div>Longitude: {this.state.cityLon}</div>
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </>
-    
     );
   }
 }

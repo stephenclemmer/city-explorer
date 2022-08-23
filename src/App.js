@@ -49,30 +49,34 @@ class App extends React.Component {
   render() {
     return (
         <>
+        <div class='body'>
         <Form onSubmit={this.getCityData}>
           <Form.Group>
             <Form.Control 
               type="text" 
-              placeholder="Name of Location" 
+              placeholder="Where would you like to explore?" 
               onInput={this.handleInput}/>
           </Form.Group>
           
           <Button 
             type="submit">
-            Explore!
+            Let's GO!
           </Button>
         </Form>
         
+        <div class='card'>
         <Card style={{ width: '30rem' }}>
           <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
           <Card.Body>
             <Card.Title>City: {this.state.city}</Card.Title>
             <Card.Text>
-            <div>Latitude: {this.state.cityLon}</div>
+            <div class=''>Latitude: {this.state.cityLon}</div>
             <div>Longitude: {this.state.cityLon}</div>
             </Card.Text>
           </Card.Body>
         </Card>
+        </div>
+        </div>
       </>
     );
   }

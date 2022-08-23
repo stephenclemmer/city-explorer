@@ -16,7 +16,7 @@ class App extends React.Component {
       cityLat: '',
       mapImg: '',
       error: false,
-      errorMessage: '',
+      errorMessage: ''
     }
   }
 
@@ -31,55 +31,68 @@ class App extends React.Component {
 
   getCityData = async (e) => {
     e.preventDefault();
+        try{
+          let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
-    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+          let cityData = await axios.get(url);
 
-    let cityData = await axios.get(url);
+          console.log(cityData.data[0].lat);
+          console.log(cityData);
+          console.log('hello world');
 
-    console.log(cityData.data[0].lat);
-    console.log(cityData);
-    console.log('hello world');
-
-    this.setState({cityData: cityData.data[0]});
-    this.setState({cityLon: cityData.data[0].lon});
-    this.setState({cityLat: cityData.data[0].lat});
+          this.setState({cityData: cityData.data[0]});
+          this.setState({cityLon: cityData.data[0].lon});
+          this.setState({cityLat: cityData.data[0].lat});
+        }
+        catch(error) {
+          console.log(error)
+          this.setState({
+            error: true,
+            errorMessage: `Ar Error Occurred: ${error.message}`
+          });
+    }
   }
+  
   
 
   render() {
     return (
         <>
         <div class='body'>
-        <Form onSubmit={this.getCityData}>
-          <Form.Group>
-            <Form.Control 
-              type="text" 
-              placeholder="Where would you like to explore?" 
-              onInput={this.handleInput}/>
-          </Form.Group>
-          
-          <Button 
-            type="submit">
-            Let's GO!
-          </Button>
-        </Form>
+          <Form onSubmit={this.getCityData}>
+            <Form.Group>
+              <Form.Control 
+                type="text" 
+                placeholder="Where would you like to explore?" 
+                onInput={this.handleInput}/>
+            </Form.Group>
+            
+            <Button 
+              type="submit">
+              Let's GO!
+            </Button>
+            </Form>
         
-        <div class='card'>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
-          
-          <Card.Body>
-            <Card.Title>City: {this.state.city}</Card.Title>
-            <Card.Text>
-            <div class=''>Latitude: {this.state.cityLon}</div>
-            <div>Longitude: {this.state.cityLon}</div>
-            </Card.Text>
-          </Card.Body>
-        </Card>
+          <div class='card'>
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
+              
+              <Card.Body>
+                <Card.Title>City: {this.state.city}</Card.Title>
+                <Card.Text>
+                <div class=''>Latitude: {this.state.cityLon}</div>
+                <div>Longitude: {this.state.cityLon}</div>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </div>
         </div>
-        </div>
-      </>
+        {
+          this.state.error? <p>{this.state.errorMessage}</p> : <p></p>
+        }
+        </>
     );
   }
 }
+
 export default App;

@@ -67,6 +67,7 @@ class App extends React.Component {
         <div class='card'>
         <Card style={{ width: '18rem' }}>
           <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
+          
           <Card.Body>
             <Card.Title>City: {this.state.city}</Card.Title>
             <Card.Text>

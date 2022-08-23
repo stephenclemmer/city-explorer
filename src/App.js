@@ -27,23 +27,12 @@ class App extends React.Component {
 
     let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
-    // let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
-
     let cityData = await axios.get(url);
 
-
-
-    console.log(cityData.data[0]);
+    console.log(cityData.data[0].lat);
     console.log(cityData);
+    console.log('hello world');
   }
-/*
-  set another state inside of the city data
-  use this.setState=
-  cityData.lon:
-  cityData.lat:
-
-
-*/
 
   render() {
     return (
@@ -60,8 +49,11 @@ class App extends React.Component {
             type="submit" 
             class="submit" 
             value="Explore!"
-            ></input>
+            ></input> 
         </form>
+            {/* <p>{this.props.cityData.data[0].display_name}</p>
+            <p>{this.props.cityData.data[0].lon}</p>
+            <p>{this.props.cityData.data[0].lat}</p> */}
       </>
       </div>
     

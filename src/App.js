@@ -2,20 +2,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import React from 'react';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cityData: [],
       city: '',
+      cityLon: '', 
+      cityLat: '',
+      mapImg: '',
       error: false,
       errorMessage: '',
     }
   }
+  
+
 
   handleInput = (e) => {
     e.preventDefault();
-    console.log('SIGNAL IS HERE!')
     this.setState({
       city: e.target.value
     })
@@ -23,7 +28,6 @@ class App extends React.Component {
 
   getCityData = async (e) => {
     e.preventDefault();
-    console.log('THIS IS ALIVE!')
 
     let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
@@ -32,13 +36,21 @@ class App extends React.Component {
     console.log(cityData.data[0].lat);
     console.log(cityData);
     console.log('hello world');
+
+    this.setState({cityData: cityData.data[0]});
+    this.setState({cityLon: cityData.data[0].lon});
+    this.setState({cityLat: cityData.data[0].lat});
+
+ 
   }
+  
+
+
 
   render() {
     return (
-      <div>
-        <p>Proof of life</p>
         <>
+        <p>Proof of life</p>
         <form onSubmit={this.getCityData}>
           <input 
             type="text" 
@@ -51,11 +63,15 @@ class App extends React.Component {
             value="Explore!"
             ></input> 
         </form>
-            {/* <p>{this.props.cityData.data[0].display_name}</p>
-            <p>{this.props.cityData.data[0].lon}</p>
-            <p>{this.props.cityData.data[0].lat}</p> */}
-      </>
+      
+      <div>
+        <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`}></img>
+
+        <p> City: {this.state.city}</p>
+        <p>Latitude: {this.state.cityLon} </p>
+        <p>Longitude: {this.state.cityLon}</p>
       </div>
+      </>
     
     );
   }

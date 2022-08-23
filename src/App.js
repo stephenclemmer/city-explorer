@@ -25,12 +25,25 @@ class App extends React.Component {
     e.preventDefault();
     console.log('THIS IS ALIVE!')
 
-    let url = `https://us1.locationiq.com/v1/search?key=${process.env.CITY_EXPLORER_LOCATIONIQ_API_KEY}&q={this.state.city}&format=json`
-// Insert url below
-    let cityData = await axios.get(url)
+    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+
+    // let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+
+    let cityData = await axios.get(url);
+
+
+
+    console.log(cityData.data[0]);
+    console.log(cityData);
   }
+/*
+  set another state inside of the city data
+  use this.setState=
+  cityData.lon:
+  cityData.lat:
 
 
+*/
 
   render() {
     return (
@@ -38,14 +51,15 @@ class App extends React.Component {
         <p>Proof of life</p>
         <>
         <form onSubmit={this.getCityData}>
-          <input type="text" 
-          placeholder="Name of Location"
-          onInput={this.handleInput}></input>
           <input 
+            type="text" 
+            placeholder="Name of Location"
+            onInput={this.handleInput}>
+          </input>
+          <input
             type="submit" 
             class="submit" 
             value="Explore!"
-            // onSubmit={this.handleGetData}
             ></input>
         </form>
       </>

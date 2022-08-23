@@ -1,6 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
+// import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 
 class App extends React.Component {
@@ -50,27 +55,31 @@ class App extends React.Component {
   render() {
     return (
         <>
-        <p>Proof of life</p>
-        <form onSubmit={this.getCityData}>
-          <input 
-            type="text" 
-            placeholder="Name of Location"
-            onInput={this.handleInput}>
-          </input>
-          <input
-            type="submit" 
-            class="submit" 
-            value="Explore!"
-            ></input> 
-        </form>
+        <Form onSubmit={this.getCityData}>
+          <Form.Group>
+            <Form.Control 
+              type="text" 
+              placeholder="Name of Location" 
+              onInput={this.handleInput}/>
+          </Form.Group>
+          
+          <Button 
+            type="submit">
+            Explore!
+          </Button>
+        </Form>
+        
+        <Card style={{ width: '30rem' }}>
+      <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
+      <Card.Body>
+        <Card.Title>City: {this.state.city}</Card.Title>
+        <Card.Text>
+        <div>Latitude: {this.state.cityLon}</div>
+        <div>Longitude: {this.state.cityLon}</div>
+        </Card.Text>
+      </Card.Body>
+    </Card>
       
-      <div>
-        <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`}></img>
-
-        <p> City: {this.state.city}</p>
-        <p>Latitude: {this.state.cityLon} </p>
-        <p>Longitude: {this.state.cityLon}</p>
-      </div>
       </>
     
     );

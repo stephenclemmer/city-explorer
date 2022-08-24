@@ -4,7 +4,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Weather from './Weather.js';
+// import Weather from './Weather.js';
 
 
 class App extends React.Component {
@@ -82,10 +82,7 @@ class App extends React.Component {
                 onInput={this.handleInput}/>
             </Form.Group>
             
-            <Button 
-              type="submit">
-              Let's GO!
-            </Button>
+            <Button type="submit">Let's GO!</Button>
             </Form>
 
       
@@ -98,7 +95,7 @@ class App extends React.Component {
               {weather} 
             </ul>
             }
-            
+
             <Card style={{ width: '18rem' }}>
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
               

@@ -66,6 +66,11 @@ class App extends React.Component {
       
       
       render() {
+        console.log(this.state.weatherData);
+        let weather = this.state.weatherData.map(day => {
+          return <li>{day.description}</li>
+        
+        })
         return (
         <>
         <div>
@@ -86,6 +91,14 @@ class App extends React.Component {
       
         
           <div>
+            {
+              this.state.weatherData.length > 0 && 
+
+            <ul>
+              {weather} 
+            </ul>
+            }
+            
             <Card style={{ width: '18rem' }}>
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
               

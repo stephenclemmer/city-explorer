@@ -13,8 +13,8 @@ class App extends React.Component {
     this.state = {
       cityData: [],
       city: '',
-      cityLon: '', 
-      cityLat: '',
+      cityLon: '-122.3300624', 
+      cityLat: '47.6038321',
       mapImg: '',
       error: false,
       errorMessage: '',
@@ -22,6 +22,7 @@ class App extends React.Component {
     }
   }
 
+  
 
   handleInput = (e) => {
     e.preventDefault();
@@ -67,8 +68,8 @@ class App extends React.Component {
       
       render() {
         console.log(this.state.weatherData);
-        let weather = this.state.weatherData.map(day => {
-          return <li>{day.description}</li>
+        let weather = this.state.weatherData.map((day, index) => {
+          return <li key={index}>{day.description}</li>
         
         })
         return (
@@ -101,10 +102,8 @@ class App extends React.Component {
               
               <Card.Body>
                 <Card.Title>City: {this.state.city}</Card.Title>
-                <Card.Text>
-                <div>Latitude: {this.state.cityLon}</div>
-                <div>Longitude: {this.state.cityLon}</div>
-                </Card.Text>
+                <Card.Text>Latitude: {this.state.cityLat}</Card.Text>
+                <Card.Text>Longitude: {this.state.cityLon}</Card.Text>
               </Card.Body>
             </Card>
           </div>

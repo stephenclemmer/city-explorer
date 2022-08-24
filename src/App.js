@@ -4,6 +4,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Weather from './Weather.js';
 
 
 class App extends React.Component {
@@ -16,7 +17,8 @@ class App extends React.Component {
       cityLat: '',
       mapImg: '',
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      weatherData: []
     }
   }
 
@@ -36,29 +38,37 @@ class App extends React.Component {
 
           let cityData = await axios.get(url);
 
+          let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+          let weatherData = await axios.get(weatherURL);
+
+          console.log('_________________________');
+          console.log(weatherData.data[0].date);
+
+          
           console.log(cityData.data[0].lat);
           console.log(cityData);
           console.log('hello world');
-
+          
           this.setState({cityData: cityData.data[0]});
           this.setState({cityLon: cityData.data[0].lon});
           this.setState({cityLat: cityData.data[0].lat});
+          this.setState({weatherData: weatherData.data});
         }
         catch(error) {
           console.log(error)
           this.setState({
             error: true,
-            errorMessage: `Ar Error Occurred: ${error.message}`
+            errorMessage: `An Error Occurred: ${error.message}`
           });
-    }
-  }
-  
-  
-
-  render() {
-    return (
+        }
+      }
+      
+      
+      
+      render() {
+        return (
         <>
-        <div class='body'>
+        <div>
           <Form onSubmit={this.getCityData}>
             <Form.Group>
               <Form.Control 
@@ -72,15 +82,17 @@ class App extends React.Component {
               Let's GO!
             </Button>
             </Form>
+
+      
         
-          <div class='card'>
+          <div>
             <Card style={{ width: '18rem' }}>
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
               
               <Card.Body>
                 <Card.Title>City: {this.state.city}</Card.Title>
                 <Card.Text>
-                <div class=''>Latitude: {this.state.cityLon}</div>
+                <div>Latitude: {this.state.cityLon}</div>
                 <div>Longitude: {this.state.cityLon}</div>
                 </Card.Text>
               </Card.Body>
@@ -94,5 +106,7 @@ class App extends React.Component {
     );
   }
 }
+
+       
 
 export default App;

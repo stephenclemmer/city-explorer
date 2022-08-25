@@ -34,24 +34,11 @@ class App extends React.Component {
 
 
   getMovieData = async (e) => {
-    e.preventDefault();
 
-    console.log('We are in the movie finction');
     
 
         try{
 
-          console.log('Movie Data Fuinction');
-          let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&query=${this.state.city}`
-
-
-
-
-          console.log(url);
-
-          // let movieData = await axios.get(url);
-
-          // console.log(movieData);
 
           let movieURL = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
           let movieData = await axios.get(movieURL);
@@ -59,7 +46,6 @@ class App extends React.Component {
           this.setState({movieData: movieData.data});
         }
         catch(error) {
-          // console.log(error)
           this.setState({
             error: true,
             errorMessage: `An Error Occurred: ${error.message}`
@@ -72,7 +58,8 @@ class App extends React.Component {
     e.preventDefault();
         try{
 
-          console.log('THIS IS THE WEAHER');
+          // console.log('THIS IS THE WEAHER');
+          this.getMovieData();
 
           let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
@@ -95,26 +82,13 @@ class App extends React.Component {
         }
       }
       
- 
-      // onClickAgain = async(e) => {
-      //   e.preventDefault();
-      //     this.getCityData();
-      //     this.getMovieData();
-      // }
 
-
-      // render() {
-      //     return (
-      //       <a href="#" onClick={this.onClick}>Test Link</a>
-      //     );
-      // }
-    
     
       render() {
         console.log(this.state.weatherData);
-        console.log('This is the movies!');
+        // console.log('This is the movies!');
         console.log(this.state.movieData);
-        console.log('End of Movies');
+        // console.log('End of Movies');
         let weather = this.state.weatherData.map((day, index) => {
           return <li key={index}>{day.description}</li>
         
@@ -131,7 +105,6 @@ class App extends React.Component {
         <>
         <div>
           <Form onSubmit={this.getCityData}>
-          {/* <Form onSubmit={this.getMovieData}> */}
             <Form.Group>
               <Form.Control 
                 type="text" 

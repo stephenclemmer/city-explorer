@@ -4,7 +4,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Weather from './Weather.js';
+// import Weather from './Weather.js';
 
 
 class App extends React.Component {
@@ -13,15 +13,17 @@ class App extends React.Component {
     this.state = {
       cityData: [],
       city: '',
-      cityLon: '', 
-      cityLat: '',
+      cityLon: '-122.3300624', 
+      cityLat: '47.6038321',
       mapImg: '',
       error: false,
       errorMessage: '',
-      weatherData: []
+      weatherData: [],
+      movieData: [],
     }
   }
 
+  
 
   handleInput = (e) => {
     e.preventDefault();
@@ -31,23 +33,40 @@ class App extends React.Component {
   }
 
 
+  getMovieData = async (e) => {
+
+    
+
+        try{
+
+
+          let movieURL = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
+          let movieData = await axios.get(movieURL);
+    
+          this.setState({movieData: movieData.data});
+        }
+        catch(error) {
+          this.setState({
+            error: true,
+            errorMessage: `An Error Occurred: ${error.message}`
+          });
+        }
+      }
+
+
   getCityData = async (e) => {
     e.preventDefault();
         try{
+
+          // console.log('THIS IS THE WEAHER');
+          this.getMovieData();
+
           let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
 
           let cityData = await axios.get(url);
 
-          let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+          let weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
           let weatherData = await axios.get(weatherURL);
-
-          console.log('_________________________');
-          console.log(weatherData.data[0].date);
-
-          
-          console.log(cityData.data[0].lat);
-          console.log(cityData);
-          console.log('hello world');
           
           this.setState({cityData: cityData.data[0]});
           this.setState({cityLon: cityData.data[0].lon});
@@ -55,7 +74,7 @@ class App extends React.Component {
           this.setState({weatherData: weatherData.data});
         }
         catch(error) {
-          console.log(error)
+          // console.log(error)
           this.setState({
             error: true,
             errorMessage: `An Error Occurred: ${error.message}`
@@ -63,14 +82,25 @@ class App extends React.Component {
         }
       }
       
-      
-      
+
+    
       render() {
         console.log(this.state.weatherData);
-        let weather = this.state.weatherData.map(day => {
-          return <li>{day.description}</li>
+        // console.log('This is the movies!');
+        console.log(this.state.movieData);
+        // console.log('End of Movies');
+        let weather = this.state.weatherData.map((day, index) => {
+          return <li key={index}>{day.description}</li>
         
+          
+          
         })
+        
+        let movies = this.state.movieData.map((movie, index) => {
+          return <li key={index}>{movie.title}</li>
+
+        })
+
         return (
         <>
         <div>
@@ -82,10 +112,7 @@ class App extends React.Component {
                 onInput={this.handleInput}/>
             </Form.Group>
             
-            <Button 
-              type="submit">
-              Let's GO!
-            </Button>
+            <Button type="submit">Let's GO!</Button>
             </Form>
 
       
@@ -98,16 +125,22 @@ class App extends React.Component {
               {weather} 
             </ul>
             }
-            
+
+{
+              this.state.movieData.length > 0 && 
+
+            <ul>
+              {movies} 
+            </ul>
+            }
+
             <Card style={{ width: '18rem' }}>
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
               
               <Card.Body>
                 <Card.Title>City: {this.state.city}</Card.Title>
-                <Card.Text>
-                <div>Latitude: {this.state.cityLon}</div>
-                <div>Longitude: {this.state.cityLon}</div>
-                </Card.Text>
+                <Card.Text>Latitude: {this.state.cityLat}</Card.Text>
+                <Card.Text>Longitude: {this.state.cityLon}</Card.Text>
               </Card.Body>
             </Card>
           </div>

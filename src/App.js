@@ -75,14 +75,8 @@ class App extends React.Component {
         }
       }
       
-
-    
-      render() {
       
-        
-        
-      
-        
+      render() {  
         return (
           <>
 
@@ -103,7 +97,6 @@ class App extends React.Component {
           <div>
           <Weather weatherData={this.state.weatherData}/>
           <Movies movieData={this.state.movieData}/>
-
      
 
             <Card style={{ width: '18rem' }}>

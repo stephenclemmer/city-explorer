@@ -1,25 +1,20 @@
 import React from 'react';
+import Movie from './Movie.js';
 
 class Movies extends React.Component {
 
-  render(){
+  render() {
 
-    let movies = this.props.movieData.map((movie, index) => {
-      return <li key={index}>{movie.title}</li>
-    })
-
-    return(
+    return (
       <>
-             {
-              // this.state.movieData.length > 0 && 
-
-            <ul>
-              {movies} 
-            </ul>
-            }
+        {
+          < ul >
+            <Movie movieData={this.props.movieData} />
+          </ul >
+        }
       </>
     )
   }
-  
+
 }
-  export default Movies;
+export default Movies;

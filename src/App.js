@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 // import Weather from './Weather.js';
+// import Movies from './Movies.js';
 
 
 class App extends React.Component {
@@ -34,12 +35,7 @@ class App extends React.Component {
 
 
   getMovieData = async (e) => {
-
-    
-
         try{
-
-
           let movieURL = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
           let movieData = await axios.get(movieURL);
     

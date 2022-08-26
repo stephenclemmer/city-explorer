@@ -4,8 +4,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-// import Weather from './Weather.js';
-// import Movies from './Movies.js';
+import Weather from './Weather.js';
+import Movies from './Movies.js';
 
 
 class App extends React.Component {
@@ -53,8 +53,6 @@ class App extends React.Component {
   getCityData = async (e) => {
     e.preventDefault();
         try{
-
-          // console.log('THIS IS THE WEAHER');
           this.getMovieData();
 
           let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
@@ -70,7 +68,6 @@ class App extends React.Component {
           this.setState({weatherData: weatherData.data});
         }
         catch(error) {
-          // console.log(error)
           this.setState({
             error: true,
             errorMessage: `An Error Occurred: ${error.message}`
@@ -78,27 +75,11 @@ class App extends React.Component {
         }
       }
       
-
-    
-      render() {
-        console.log(this.state.weatherData);
-        // console.log('This is the movies!');
-        console.log(this.state.movieData);
-        // console.log('End of Movies');
-        let weather = this.state.weatherData.map((day, index) => {
-          return <li key={index}>{day.description}</li>
-        
-          
-          
-        })
-        
-        let movies = this.state.movieData.map((movie, index) => {
-          return <li key={index}>{movie.title}</li>
-
-        })
-
+      
+      render() {  
         return (
-        <>
+          <>
+
         <div>
           <Form onSubmit={this.getCityData}>
             <Form.Group>
@@ -114,21 +95,9 @@ class App extends React.Component {
       
         
           <div>
-            {
-              this.state.weatherData.length > 0 && 
-
-            <ul>
-              {weather} 
-            </ul>
-            }
-
-{
-              this.state.movieData.length > 0 && 
-
-            <ul>
-              {movies} 
-            </ul>
-            }
+          <Weather weatherData={this.state.weatherData}/>
+          <Movies movieData={this.state.movieData}/>
+     
 
             <Card style={{ width: '18rem' }}>
               <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />

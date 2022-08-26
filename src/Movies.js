@@ -1,47 +1,20 @@
 import React from 'react';
+import Movie from './Movie.js';
 
 class Movies extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: false,
-      errorMessage: '',
-      movieData: [],
-    }
+  render() {
+
+    return (
+      <>
+        {
+          < ul >
+            <Movie movieData={this.props.movieData} />
+          </ul >
+        }
+      </>
+    )
   }
-
-  getMovieData = async (e) => {
-    try{
-      let movieURL = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
-      let movieData = await axios.get(movieURL);
-
-      this.setState({movieData: movieData.data});
-    }
-    catch(error) {
-      this.setState({
-        error: true,
-        errorMessage: `An Error Occurred: ${error.message}`
-      });
-    }
-  }
-  
-render(){
-  return(
-    <>
-    <div>
-    
-    let movies = this.state.movieData.map((movie, index) => {
-          return <li key={index}>{movie.title}</li>
-
-        })
-
-
-
-    </div>
-    </>
-  )
-}
 
 }
 export default Movies;

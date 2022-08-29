@@ -1,6 +1,7 @@
 import React from 'react';
 import WeatherDay from './WeatherDay';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Weather.css';
 
 class Weather extends React.Component {
 

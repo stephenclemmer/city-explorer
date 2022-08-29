@@ -30,7 +30,7 @@ class Movie extends React.Component {
 
 
       {this.props.movieData.map((movie, index) =>
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ width: '12rem' }}>
       <Card.Img variant="top" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
       <Card.Body>
         <Card.Title key={index}>{movie.overview}</Card.Title>

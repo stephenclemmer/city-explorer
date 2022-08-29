@@ -3,3 +3,20 @@ Card.Title {
   color: red;
 }
 
+body {
+  background-color: black;
+}
+
+Card {
+  
+}
+
+Weather {
+  background-color: green;
+  display: flex;
+  flex-direction: row;
+
+
+
+}
+

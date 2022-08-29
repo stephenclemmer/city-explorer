@@ -1,7 +1,7 @@
 import React from 'react';
 import Movie from './Movie.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Carousel from 'react-bootstrap/Carousel';
+// import Carousel from 'react-bootstrap/Carousel';
 
 class Movies extends React.Component {
 

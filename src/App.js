@@ -6,6 +6,10 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Weather from './Weather.js';
 import Movies from './Movies.js';
+import './App.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 class App extends React.Component {
@@ -79,42 +83,65 @@ class App extends React.Component {
       
       render() {  
         return (
-          <>
+          <body>
 
         <div>
+         <Container>
           <Form onSubmit={this.getCityData}>
             <Form.Group>
               <Form.Control 
                 type="text" 
                 placeholder="Where would you like to explore?" 
-                onInput={this.handleInput}/>
+                onInput={this.handleInput}
+                style={{ width: '32rem' }}/>
             </Form.Group>
             
             <Button type="submit">Let's GO!</Button>
-            </Form>
+          </Form>
+        </Container>
 
+        <Container>
+          <Card style={{ width: '32rem' }}>
+            <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
+              
+            <Card.Body>
+              <Card.Title>City: {this.state.city}</Card.Title>
+              <Card.Text>Latitude: {this.state.cityLat}</Card.Text>
+              <Card.Text>Longitude: {this.state.cityLon}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Container>
       
         
-          <div>
+        <div>
+        <Container>
+          <Row>
+            <Movies movieData={this.state.movieData}/>
+  
+            <Col>1 of 3</Col>
+            <Col>2 of 3</Col>
+            <Col>3 of 3</Col>
+          </Row>
+         </Container>
+        </div>
+        <div>
+        <Container>
+        <Row>
           <Weather weatherData={this.state.weatherData}/>
-          <Movies movieData={this.state.movieData}/>
+            <Col>1 of 3</Col>
+            <Col>2 of 3</Col>
+            <Col>3 of 3</Col>
+        </Row>
+      </Container>
+    
      
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=13`} />
-              
-              <Card.Body>
-                <Card.Title>City: {this.state.city}</Card.Title>
-                <Card.Text>Latitude: {this.state.cityLat}</Card.Text>
-                <Card.Text>Longitude: {this.state.cityLon}</Card.Text>
-              </Card.Body>
-            </Card>
           </div>
         </div>
         {
           this.state.error? <p>{this.state.errorMessage}</p> : <p></p>
         }
-        </>
+        </body>
     );
   }
 }

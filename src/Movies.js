@@ -1,5 +1,7 @@
 import React from 'react';
 import Movie from './Movie.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Carousel from 'react-bootstrap/Carousel';
 
 class Movies extends React.Component {
 
@@ -7,11 +9,11 @@ class Movies extends React.Component {
 
     return (
       <>
-        {
-          < ul >
+        
+          
             <Movie movieData={this.props.movieData} />
-          </ul >
-        }
+    
+        
       </>
     )
   }

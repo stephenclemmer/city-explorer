@@ -40,6 +40,7 @@ class App extends React.Component {
           let movieData = await axios.get(movieURL);
     
           this.setState({movieData: movieData.data});
+          console.log(movieData);
         }
         catch(error) {
           this.setState({

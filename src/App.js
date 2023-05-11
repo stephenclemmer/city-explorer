@@ -55,8 +55,20 @@ class App extends React.Component {
       }
 
 
+  /* `getCityData` is an asynchronous function that is triggered when the user submits the form to
+  search for a city. It first prevents the default form submission behavior using
+  `e.preventDefault()`. */
   getCityData = async (e) => {
     e.preventDefault();
+        /* This code block is the `getCityData` function that is triggered when the user submits the
+        form to search for a city. It first tries to get movie data by calling the `getMovieData`
+        function. Then, it constructs a URL using the `REACT_APP_LOCATIONIQ_API_KEY` and the city
+        name entered by the user to get the city data using the `axios.get` method. After that, it
+        constructs a weather URL using the latitude and longitude of the city obtained from the city
+        data and gets the weather data using the `axios.get` method. Finally, it sets the state of
+        the component with the city data, city longitude, city latitude, and weather data obtained
+        from the API calls. If an error occurs during any of these API calls, it sets the `error`
+        state to `true` and sets the `errorMessage` state to the error message. */
         try{
           this.getMovieData();
 

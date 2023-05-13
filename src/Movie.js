@@ -1,3 +1,4 @@
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,25 +30,34 @@ class Movie extends React.Component {
 
 
 
-      {this.props.movieData.map((movie, index) =>
-      <Card style={{ width: '12rem' }}>
-      <Card.Img variant="top" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
-      <Card.Body>
-        <Card.Title key={index}>{movie.overview}</Card.Title>
-        <Card.Text key={index}>
-          {movie.description}
-        </Card.Text>
-      </Card.Body>
-    </Card>
-  )}
-   
-{/* 
+        {this.props.movieData.map((movie, index) =>
+          <Card
+            style={{ width: '12rem' }}
+            key={index}
+          >
+            <Card.Img variant="top" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
+            <Card.Body
+            // key={index}
+            >
+              <Card.Title 
+              // key={index}
+              >{movie.overview}</Card.Title>
+              <Card.Text 
+              // key={index}
+              >
+                {movie.description}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        )}
+
+        {/* 
       <div>
       {this.props.movieData.map((movie, index) =>
          <li key={index}>{movie.title} {movie.description}</li>
          )}
     </div> */}
-    </>
+      </>
     )
   }
 

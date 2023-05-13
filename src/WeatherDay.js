@@ -1,3 +1,4 @@
+/* The WeatherDay class is a React component that renders a list of weather data as Bootstrap cards. */
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
@@ -12,11 +13,16 @@ class WeatherDay extends React.Component{
 
     {this.props.weatherData.map((day, index) =>
       
-    <Card style={{ width: '12rem' }}>
+    <Card 
+    style={{ width: '12rem' }}
+    key={index}
+    >
       <Card.Img variant="top" />
       <Card.Body>
-        <Card.Title key={index}>{day.date}</Card.Title>
-        <Card.Text key={index}>
+        <Card.Title>{day.date}</Card.Title>
+        <Card.Text 
+        // key={index}
+        >
           {day.description}
         </Card.Text>
       </Card.Body>

@@ -140,9 +140,9 @@ class App extends React.Component {
             <Container>
               <Row>
                 <Weather weatherData={this.state.weatherData} />
-                <Col>1 of 3</Col>
-                <Col>2 of 3</Col>
-                <Col>3 of 3</Col>
+                <Col></Col>
+                <Col></Col>
+                <Col></Col>
               </Row>
             </Container>
 
